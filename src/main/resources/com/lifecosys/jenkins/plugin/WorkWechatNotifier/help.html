@@ -1,0 +1,14 @@
+<div>
+  If configured, Jenkins will send out an notification to the specified recipients
+  when a certain important event occurs.
+
+  <ol>
+    <li>Every failed build triggers a new notification.
+    <li>A successful build after a failed (or unstable) build triggers a notification,
+        indicating that a crisis is over.
+    <li>An unstable build after a successful build triggers a new notification,
+        indicating that there's a regression.
+    <li>Unless configured, every unstable build triggers a new notification,
+        indicating that regression is still there.
+  </ol>
+</div>
