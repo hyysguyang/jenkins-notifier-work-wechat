@@ -9,3 +9,14 @@ Just send the build notification to the work wechat group by robot.
 2. 发送前5条提交日志。
 
 ## 用法
+
+1. 创建群机器人，并获取群机器人的key。
+
+	![work-wechat-robot](docs/work-wechat-robot.png)
+
+2. 配置一个Post-build Actions, 选择： Work Wechat Notification 
+   
+    ![work-wechat-robot](docs/config.png)
+
+
+That's all.
