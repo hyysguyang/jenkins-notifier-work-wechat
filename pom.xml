@@ -1,12 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
-    <artifactId>kotlin-plugin</artifactId>
-    <version>1.1</version> <!-- or whatever the newest version available is -->
-    <relativePath />
+    <artifactId>plugin</artifactId>
+    <version>4.38</version>
+    <relativePath/>
   </parent>
-  
   <groupId>com.lifecosys.jenkins.plugin</groupId>
   <artifactId>notifier-work-wechat</artifactId>
   <packaging>hpi</packaging>
@@ -22,52 +23,70 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <developers>
+    <developer>
+      <id>young</id>
+      <name>Young Gu</name>
+      <email>hyysguyang@gmail.com</email>
+    </developer>
+  </developers>
+
+  <scm >
+    <connection>scm:git:https://github.com/${gitHubRepo}</connection>
+    <developerConnection>scm:git:https://github.com/${gitHubRepo}</developerConnection>
+    <tag>${scmTag}</tag>
+    <url>https://github.com/${gitHubRepo}</url>
+  </scm>
   <properties>
+    <revision>1.0</revision>
+    <changelist>-SNAPSHOT</changelist>
+
+    <!-- Baseline Jenkins version you use to build the plugin. Users must have this version or newer to run. -->
+    <jenkins.version>2.303.3</jenkins.version>
     <java.level>8</java.level>
-    <jenkins.version>2.150.1</jenkins.version>
-    <jcasc.version>1.36</jcasc.version>
+    <gitHubRepo>hyysguyang/jenkins-notifier-work-wechat</gitHubRepo>
     <enforcer.skip>true</enforcer.skip>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <!-- Pick up common dependencies for the selected LTS line: https://github.com/jenkinsci/bom#usage -->
+        <groupId>io.jenkins.tools.bom</groupId>
+        <artifactId>bom-2.303.x</artifactId>
+        <version>1210.vcd41f6657f03</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.7.25</version>
-    </dependency>
-    <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>display-url-api</artifactId>
-      <version>2.3.1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-api</artifactId>
-      <version>2.33</version>
+      <artifactId>structs</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-step-api</artifactId>
-      <version>2.19</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>apache-httpcomponents-client-4-api</artifactId>
-      <version>4.5.3-2.1</version>
+      <artifactId>workflow-cps</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>jackson2-api</artifactId>
-      <version>2.9.9</version>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-job</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-basic-steps</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-durable-task-step</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
-  <scm>
-    <connection>scm:git:git@github.com:hyysguyang/jenkins-notifier-work-wechat.git</connection>
-    <developerConnection>scm:git:git@github.com:hyysguyang/jenkins-notifier-work-wechat.git</developerConnection>
-    <url>https://github.com/hyysguyang/jenkins-notifier-work-wechat</url>
-    <tag>${scmTag}</tag>
-  </scm>
+
   <repositories>
     <repository>
       <id>repo.jenkins-ci.org</id>
@@ -80,17 +99,4 @@
       <url>https://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
-  <build>
-    <defaultGoal>clean hpi:run</defaultGoal>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.5</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
